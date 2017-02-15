@@ -8,16 +8,16 @@ from googletools.templatetags.googletools import SiteVerificationCodeNode
 
 
 class AnalyticsCodeTestCase(TestCase):
-    fixtures = ['sites', 'analytics_codes']
+    fixtures = ['tests/sites', 'tests/analytics_codes']
 
     def setUp(self):
         self.site_a = Site.objects.get(pk=1)
         self.site_b = Site.objects.get(pk=2)
-        self.correct_out_a = render_to_string('googletools/tests/analytics_code_out_a.html', {})
-        self.correct_out_b = render_to_string('googletools/tests/analytics_code_out_b.html', {})
+        self.correct_out_a = render_to_string('tests/analytics_code_out_a.html', {})
+        self.correct_out_b = render_to_string('tests/analytics_code_out_b.html', {})
 
     def test_templatetag(self):
-        code_in = render_to_string('googletools/tests/analytics_code_in.html', {})
+        code_in = render_to_string('tests/analytics_code_in.html', {})
         self.assertEqual(code_in, self.correct_out_a)
 
     def test_node_site_a(self):
@@ -40,16 +40,16 @@ class AnalyticsCodeTestCase(TestCase):
 
 
 class SiteVerificationCodeTestCase(TestCase):
-    fixtures = ['sites', 'site_verification_codes']
+    fixtures = ['tests/sites', 'tests/site_verification_codes']
 
     def setUp(self):
         self.site_a = Site.objects.get(pk=1)
         self.site_b = Site.objects.get(pk=2)
-        self.correct_out_a = render_to_string('googletools/tests/site_verification_code_out_a.html', {})
-        self.correct_out_b = render_to_string('googletools/tests/site_verification_code_out_b.html', {})
+        self.correct_out_a = render_to_string('tests/site_verification_code_out_a.html', {})
+        self.correct_out_b = render_to_string('tests/site_verification_code_out_b.html', {})
 
     def test_templatetag(self):
-        code_in = render_to_string('googletools/tests/site_verification_code_in.html', {})
+        code_in = render_to_string('tests/site_verification_code_in.html', {})
         self.assertEqual(code_in, self.correct_out_a)
 
     def test_node_site_a(self):

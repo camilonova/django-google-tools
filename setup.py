@@ -11,7 +11,11 @@ setup(
     url='http://github.com/camilonova/django-google-tools',
     license='MIT',
     include_package_data=True,
-    packages=find_packages(),
+    packages=find_packages(
+        exclude=[
+            'googletools.tests',
+        ]
+    ),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',

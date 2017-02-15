@@ -1,25 +1,17 @@
+from __future__ import absolute_import
+
 from django.conf import settings
 from django import template
 from django.contrib.sites.models import Site
 from django.template import loader, Context
 
-try:
-    # django >= 1.7
-    from django.apps import apps
-    AnalyticsCode = apps.get_model('googletools', 'analyticscode')
-    SiteVerificationCode = apps.get_model('googletools', 'siteverificationcode')
-except ImportError:
-    # django < 1.7
-    from django.db.models import get_model
-    AnalyticsCode = get_model('googletools', 'analyticscode')
-    SiteVerificationCode = get_model('googletools', 'siteverificationcode')
-
+from googletools.models import AnalyticsCode, SiteVerificationCode
 
 register = template.Library()
 
 
 class AnalyticsCodeNode(template.Node):
-   
+
     def __init__(self, site):
         self.site = site
         self.template = 'googletools/analytics_code.html'
@@ -28,11 +20,11 @@ class AnalyticsCodeNode(template.Node):
             self.code = AnalyticsCode.objects.get(site=self.site)
         except AnalyticsCode.DoesNotExist:
             self.code = None
-   
+
     def render(self, context):
         if not self.enabled or not self.code:
             return ''
-       
+
         t = loader.get_template(self.template)
 
         return t.render(Context({
@@ -41,7 +33,7 @@ class AnalyticsCodeNode(template.Node):
 
 
 class SiteVerificationCodeNode(template.Node):
-   
+
     def __init__(self, site):
         self.site = site
         self.template = 'googletools/site_verification_code.html'
@@ -50,11 +42,11 @@ class SiteVerificationCodeNode(template.Node):
             self.code = SiteVerificationCode.objects.get(site=self.site)
         except SiteVerificationCode.DoesNotExist:
             self.code = None
-   
+
     def render(self, context):
         if not self.enabled or not self.code:
             return ''
-       
+
         t = loader.get_template(self.template)
 
         return t.render(Context({
@@ -66,13 +58,13 @@ class SiteVerificationCodeNode(template.Node):
 def analytics_code(parser, token):
     """
     Get the analytics code for the current site::
-   
+
         {% analytics_code %}
-   
+
     Returns an empty string when no code could be found.
     """
     try:
-        tag_name = token.split_contents()
+        token.split_contents()
     except ValueError:
         raise template.TemplateSyntaxError('%r does not take any arguments' % token.contents.split()[0])
 
@@ -83,13 +75,13 @@ def analytics_code(parser, token):
 def site_verification_code(parser, token):
     """
     Get the site verification code for the current site::
-   
+
         {% site_verification_code %}
-   
+
     Returns an empty string when no code could be found.
     """
     try:
-        tag_name = token.split_contents()
+        token.split_contents()
     except ValueError:
         raise template.TemplateSyntaxError('%r does not take any arguments' % token.contents.split()[0])
 
