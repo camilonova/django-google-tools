@@ -1,3 +1,5 @@
+import os.path
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -17,10 +19,12 @@ SECRET_KEY = 'secret'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(os.path.dirname(__file__), 'templates'),
+        ],
         'OPTIONS': {
-            'context_processors': [
-            ],
             'loaders': [
+                'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             ]
         },
