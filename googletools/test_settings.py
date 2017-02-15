@@ -13,3 +13,16 @@ INSTALLED_APPS = [
 ]
 
 SECRET_KEY = 'secret'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'OPTIONS': {
+            'context_processors': [
+            ],
+            'loaders': [
+                'django.template.loaders.app_directories.Loader',
+            ]
+        },
+    },
+]
