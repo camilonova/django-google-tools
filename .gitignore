@@ -3,3 +3,4 @@ django_google_tools.egg-info
 build
 dist
 .DS_Store
+*.mo
