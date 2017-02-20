@@ -18,7 +18,7 @@ matrix:
      env: PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.10
 
 install:
-  - pip install --use-mirrors Django==$DJANGO_VERSION
+  - pip install Django==$DJANGO_VERSION pytest pytest-django
 
 script:
-  - django-admin.py test googletools --settings=googletools.test.settings
+  - pytest
