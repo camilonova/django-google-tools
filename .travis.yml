@@ -1,21 +1,24 @@
 language: python
 
 python:
-  - "2.6"
   - "2.7"
   - "3.2"
+  - "3.4"
 
 env:
-  - PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.4.5
-  - PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.5
+  - PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.8
+  - PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.9
+  - PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.10
 
 matrix:
   exclude:
    - python: "3.2"
-     env: PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.4.5
+     env: PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.9
+   - python: "3.2"
+     env: PYTHONPATH=$PYTHONPATH:$PWD DJANGO_VERSION=1.10
 
-install: 
-  - pip install --use-mirrors Django==$DJANGO_VERSION
+install:
+  - pip install Django==$DJANGO_VERSION pytest pytest-django
 
-script: 
-  - django-admin.py test googletools --settings=googletools.test_settings
+script:
+  - pytest
